@@ -1,0 +1,28 @@
+.widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.widget {
+  background: #f1f5f9;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.widget h4 {
+  margin-bottom: 10px;
+  color: #334155;
+}
+
+.widget p {
+  font-size: 28px;
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
