@@ -1,20 +1,14 @@
-export default function IllumineiLogo({ size = 40, className = "", showText = true }) {
+import logo from "../assets/ilogo.png";
+
+export default function IllumineiLogo({ size = 70, className = "" }) {
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center ${className}`}>
       <img
-        src="/logo.svg"
+        src={logo}
         alt="Illuminei Logo"
-        width={size}
         height={size}
-        className="object-contain"
+        className="w-auto object-contain"
       />
-      {showText && (
-        <>
-          <span className="text-xl font-bold text-slate-800">ILLUMINE</span>
-          <span className="text-xl font-bold text-red-500">i</span>
-        </>
-      )}
     </div>
   );
 }
-
