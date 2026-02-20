@@ -13,29 +13,39 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Cloning repository...'
                 checkout scm
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Backend Dependencies') {
             steps {
-                echo 'Installing dependencies...'
-                sh 'npm install'
+                dir('backend') {
+                    sh 'npm install'
+                }
             }
         }
 
-        stage('Run Tests') {
+        stage('Install Frontend Dependencies') {
             steps {
-                echo 'Running tests...'
-                sh 'npm test'
+                dir('frontend') {
+                    sh 'npm install'
+                }
             }
         }
 
-        stage('Build') {
+        stage('Build Frontend') {
             steps {
-                echo 'Building application...'
-                sh 'npm run build || echo "No build script found"'
+                dir('frontend') {
+                    sh 'npm run build'
+                }
+            }
+        }
+
+        stage('Run Backend Server Test') {
+            steps {
+                dir('backend') {
+                    sh 'node server.js & sleep 5'
+                }
             }
         }
     }
