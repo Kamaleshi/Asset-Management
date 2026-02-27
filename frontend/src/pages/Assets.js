@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-
 import Footer from "../components/Footer";
 import { api } from "../api/api";
 import { useAuth } from "../context/AuthContext";
@@ -297,7 +296,7 @@ export default function Assets({ noLayout = false }) {
       <div className="flex-1 overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-2">Assets</h1>
+              <h1 className="text-4xl font-bold text-slate-800">Assets</h1>
               <p className="text-slate-600">Manage your assets</p>
             </div>
             <div className="flex items-center gap-3">

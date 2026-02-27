@@ -8,8 +8,6 @@ import Reports from "./Reports";
 import Users from "./Users";
 import Assets from "./Assets";
 
-// placeholder no longer used; Users component will display content
-
 export default function Settings() {
   const { search } = useLocation();
   const params = new URLSearchParams(search);

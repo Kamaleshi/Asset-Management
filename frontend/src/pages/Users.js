@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-
 import Footer from "../components/Footer";
 import { api } from "../api/api";
 import { useAuth } from "../context/AuthContext";
@@ -213,7 +212,7 @@ export default function Users({ hideLayout = false }) {
 
   if (loading) {
     return (
-      <div className="flex h-screen">
+      <div className={hideLayout ? "flex-1 min-h-[240px]" : "flex h-screen"}>
         {!hideLayout && <Sidebar />}
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
@@ -224,7 +223,7 @@ export default function Users({ hideLayout = false }) {
 
   if (role !== "ADMIN" && role !== "SUPER_ADMIN") {
     return (
-      <div className="flex h-screen">
+      <div className={hideLayout ? "flex-1 min-h-[240px]" : "flex h-screen"}>
         {!hideLayout && <Sidebar />}
         <div className="flex-1 flex items-center justify-center">
           <p className="text-slate-600">You don't have permission to access this page.</p>
@@ -235,13 +234,13 @@ export default function Users({ hideLayout = false }) {
 
   // shared content rendered below
   return (
-    <div className="flex h-screen">
+    <div className={hideLayout ? "flex-1 flex flex-col overflow-hidden" : "flex h-screen"}>
       {!hideLayout && <Sidebar />}
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-2">Users</h1>
+              <h1 className="text-4xl font-bold text-slate-800">Users</h1>
               <p className="text-slate-600">Manage system users</p>
             </div>
             <div className="flex items-center gap-3">

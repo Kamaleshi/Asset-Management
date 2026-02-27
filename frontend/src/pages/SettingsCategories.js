@@ -121,7 +121,7 @@ export default function SettingsCategories() {
     <>
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h2 className="text-4xl font-bold text-slate-800 mb-2">Categories</h2>
+          <h2 className="text-4xl font-bold text-slate-800">Categories</h2>
           <p className="text-slate-600">Manage asset categories</p>
         </div>
         <div className="flex items-center gap-3">
