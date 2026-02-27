@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Assets from "./pages/Assets";
 import Users from "./pages/Users";
+import Settings from "./pages/Settings";
 
 // Protected Route Component
 function ProtectedRoute({ children }) {
@@ -60,6 +61,16 @@ export default function App() {
         element={
           <AdminRoute>
             <Users />
+          </AdminRoute>
+        }
+      />
+
+      {/* single settings route that reads query param `section` */}
+      <Route
+        path="/settings"
+        element={
+          <AdminRoute>
+            <Settings />
           </AdminRoute>
         }
       />

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+
 import Footer from "../components/Footer";
 import { api } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import { Plus, Trash2, X, Edit, Package, Info, Search } from "lucide-react";
 
-export default function Users() {
+export default function Users({ hideLayout = false }) {
   const { role } = useAuth();
   const [users, setUsers] = useState([]);
   const [assets, setAssets] = useState([]);
@@ -214,7 +214,7 @@ export default function Users() {
   if (loading) {
     return (
       <div className="flex h-screen">
-        <Sidebar />
+        {!hideLayout && <Sidebar />}
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
         </div>
@@ -225,7 +225,7 @@ export default function Users() {
   if (role !== "ADMIN" && role !== "SUPER_ADMIN") {
     return (
       <div className="flex h-screen">
-        <Sidebar />
+        {!hideLayout && <Sidebar />}
         <div className="flex-1 flex items-center justify-center">
           <p className="text-slate-600">You don't have permission to access this page.</p>
         </div>
@@ -233,11 +233,11 @@ export default function Users() {
     );
   }
 
+  // shared content rendered below
   return (
-    <div className="flex h-screen bg-slate-50">
-      <Sidebar />
+    <div className="flex h-screen">
+      {!hideLayout && <Sidebar />}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar />
         <div className="flex-1 overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -369,7 +369,7 @@ export default function Users() {
             </div>
           )}
         </div>
-        <Footer />
+        {!hideLayout && <Footer />}
       </div>
 
       {/* Add User Modal */}

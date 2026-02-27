@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+
 import Footer from "../components/Footer";
 import { api } from "../api/api";
 import { useAuth } from "../context/AuthContext";
 import { Plus, Trash2, UserCheck, UserX, X, Edit, History, Search } from "lucide-react";
 
-export default function Assets() {
+export default function Assets({ noLayout = false }) {
   const { role } = useAuth();
   const [assets, setAssets] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -274,6 +274,13 @@ export default function Assets() {
   };
 
   if (loading) {
+    if (noLayout) {
+      return (
+        <div className="flex items-center justify-center h-full">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
+        </div>
+      );
+    }
     return (
       <div className="flex h-screen">
         <Sidebar />
@@ -284,12 +291,10 @@ export default function Assets() {
     );
   }
 
-  return (
-    <div className="flex h-screen bg-slate-50">
-      <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Topbar />
-        <div className="flex-1 overflow-y-auto p-6">
+  // create reusable content block for assets page (avoids duplication)
+  const content = (
+    <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 overflow-y-auto p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold text-slate-800 mb-2">Assets</h1>
@@ -440,8 +445,7 @@ export default function Assets() {
             </div>
           )}
         </div>
-        <Footer />
-      </div>
+        {!noLayout && <Footer />}
 
       {/* Add Asset Modal */}
       {showAddModal && (
@@ -1145,6 +1149,17 @@ export default function Assets() {
           </div>
         </div>
       )}
+    </div>
+  );
+
+  if (noLayout) {
+    return content;
+  }
+
+  return (
+    <div className="flex h-screen">
+      <Sidebar />
+      {content}
     </div>
   );
 }
