@@ -237,7 +237,7 @@ export default function Users({ hideLayout = false }) {
     <div className={hideLayout ? "flex-1 flex flex-col overflow-hidden" : "flex h-screen"}>
       {!hideLayout && <Sidebar />}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-6">
+        <div className={hideLayout ? "flex-1 overflow-y-auto" : "flex-1 overflow-y-auto p-6"}>
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-4xl font-bold text-slate-800">Users</h1>

@@ -293,7 +293,7 @@ export default function Assets({ noLayout = false }) {
   // create reusable content block for assets page (avoids duplication)
   const content = (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className={noLayout ? "flex-1 overflow-y-auto" : "flex-1 overflow-y-auto p-6"}>
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-4xl font-bold text-slate-800">Assets</h1>

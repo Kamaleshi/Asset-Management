@@ -7,7 +7,7 @@ export default function Reports() {
   ];
 
   return (
-    <div className="p-6">
+    <div>
       <h1 className="text-4xl font-bold text-slate-800 mb-2">Reports</h1>
       <p>View and export various reports.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
