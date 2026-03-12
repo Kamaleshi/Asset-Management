@@ -246,8 +246,23 @@ export default function Assets({ noLayout = false }) {
     setShowEditModal(true);
   };
 
-  const handleViewDetails = (asset) => {
-    setSelectedAsset(asset);
+  const handleViewDetails = async (asset) => {
+    try {
+      const response = await api.get(`/assets/${asset.id}`);
+      const assetDetails = response.data || asset;
+      setSelectedAsset({
+        ...assetDetails,
+        createdOn: assetDetails.createdOn || assetDetails.created_at || "",
+        updatedOn: assetDetails.updatedOn || assetDetails.updated_at || "",
+      });
+    } catch (err) {
+      console.error("Error fetching asset details:", err);
+      setSelectedAsset({
+        ...asset,
+        createdOn: asset.createdOn || asset.created_at || "",
+        updatedOn: asset.updatedOn || asset.updated_at || "",
+      });
+    }
     setShowDetailModal(true);
   };
 
@@ -256,14 +271,29 @@ export default function Assets({ noLayout = false }) {
 
     const excludedKeys = new Set([
       "id",
+      "asset_id",
+      "asset_tag",
+      "asset_id_custom",
+      "asset_name",
       "name",
       "status",
+      "category_id",
+      "category_name",
+      "assigned_to",
       "assignedTo",
       "assigned_to_name",
       "assigned_to_username",
       "assigned_to_employee_id",
       "assigned_to_department",
+      "created_by",
+      "created_by_username",
+      "createdByUsername",
+      "vendor_id",
+      "vendor_name",
+      "vendorName",
       "seat",
+      "created_at",
+      "updated_at",
       "assignedUserDepartment",
     ]);
 
@@ -272,6 +302,60 @@ export default function Assets({ noLayout = false }) {
       if (value === null || value === "") return false;
       return true;
     });
+  };
+
+  const getAssetDetailLabel = (key) => {
+    const labelMap = {
+      assetId: "Asset ID",
+      assetStatus: "Asset Status",
+      serialNumber: "Serial Number",
+      seatNo: "Seat No",
+      createdOn: "Asset Created Date",
+      updatedOn: "Last Modified Date",
+    };
+
+    if (labelMap[key]) {
+      return labelMap[key];
+    }
+
+    return key
+      .replace(/_/g, " ")
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase())
+      .trim();
+  };
+
+  const formatAssetDateTime = (dateString) => {
+    if (!dateString) return "";
+
+    try {
+      let date;
+
+      if (dateString instanceof Date) {
+        date = dateString;
+      } else if (typeof dateString === "string" && dateString.includes("T")) {
+        date = new Date(dateString);
+      } else if (typeof dateString === "string" && dateString.includes(" ")) {
+        date = new Date(`${dateString} UTC`);
+      } else {
+        date = new Date(dateString);
+      }
+
+      if (Number.isNaN(date.getTime())) {
+        return dateString;
+      }
+
+      return date.toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      });
+    } catch {
+      return dateString;
+    }
   };
 
   const handleViewHistory = async (asset) => {
@@ -915,18 +999,15 @@ export default function Assets({ noLayout = false }) {
               <div className="grid grid-cols-2 gap-4">
                 {getAssetDetailEntries(selectedAsset)
                   .map(([key, value]) => {
-                    const displayKey = key
-                      .replace(/([A-Z])/g, " $1")
-                      .replace(/^./, (str) => str.toUpperCase())
-                      .trim();
-                    
                     return (
                       <div key={key}>
                         <label className="block text-sm font-medium text-slate-700 mb-1">
-                          {displayKey}
+                          {getAssetDetailLabel(key)}
                         </label>
                         <p className="text-sm text-slate-800 bg-slate-50 p-2 rounded-lg">
-                          {String(value)}
+                          {key === "createdOn" || key === "updatedOn"
+                            ? formatAssetDateTime(value)
+                            : String(value)}
                         </p>
                       </div>
                     );

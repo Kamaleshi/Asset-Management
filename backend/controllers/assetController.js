@@ -150,18 +150,9 @@ export const getAssetById = async (req, res) => {
   assertAssetAccess(actor, asset);
 
   res.json({
-    id: asset.asset_id,
-    assetId: asset.asset_id_custom || asset.asset_tag,
-    name: asset.asset_name,
-    category: asset.category_name,
-    status: asset.status,
-    assetStatus: asset.status === "ASSIGNED" ? "Assigned" : asset.status === "IN_STOCK" ? "Available" : asset.status,
-    assignedTo: asset.assigned_to,
-    assigned_to_name: asset.assigned_to_name,
-    assigned_to_username: asset.assigned_to_username,
-    assigned_to_employee_id: asset.assigned_to_employee_id,
-    assigned_to_department: asset.assigned_to_department,
-    ...asset,
+    ...mapAssetRow(asset),
+    vendorName: asset.vendor_name,
+    createdByUsername: asset.created_by_username,
   });
 };
 

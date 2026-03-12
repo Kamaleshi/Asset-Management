@@ -146,6 +146,8 @@ export function mapAssetRow(asset) {
     empName: asset.emp_name,
     employeeId: asset.employee_id_field,
     location: asset.location,
+    createdOn: asset.created_at,
+    updatedOn: asset.updated_at,
     created_at: asset.created_at,
     updated_at: asset.updated_at,
   };
