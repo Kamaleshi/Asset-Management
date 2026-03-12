@@ -251,6 +251,29 @@ export default function Assets({ noLayout = false }) {
     setShowDetailModal(true);
   };
 
+  const getAssetDetailEntries = (asset) => {
+    if (!asset) return [];
+
+    const excludedKeys = new Set([
+      "id",
+      "name",
+      "status",
+      "assignedTo",
+      "assigned_to_name",
+      "assigned_to_username",
+      "assigned_to_employee_id",
+      "assigned_to_department",
+      "seat",
+      "assignedUserDepartment",
+    ]);
+
+    return Object.entries(asset).filter(([key, value]) => {
+      if (excludedKeys.has(key)) return false;
+      if (value === null || value === "") return false;
+      return true;
+    });
+  };
+
   const handleViewHistory = async (asset) => {
     setSelectedAsset(asset);
     setShowHistoryModal(true);
@@ -890,12 +913,7 @@ export default function Assets({ noLayout = false }) {
 
             <div className="p-6">
               <div className="grid grid-cols-2 gap-4">
-                {Object.entries(selectedAsset)
-                  .filter(([key]) => {
-                    // Exclude certain fields and show assigned user info separately
-                    const excludedKeys = ["id", "assignedTo", "assigned_to_username", "assigned_to_name", "assigned_to_employee_id"];
-                    return !excludedKeys.includes(key) && selectedAsset[key] !== null && selectedAsset[key] !== "";
-                  })
+                {getAssetDetailEntries(selectedAsset)
                   .map(([key, value]) => {
                     const displayKey = key
                       .replace(/([A-Z])/g, " $1")
@@ -914,8 +932,8 @@ export default function Assets({ noLayout = false }) {
                     );
                   })}
                 
-                {/* Show assigned user info if asset is assigned */}
-                {selectedAsset.assignedTo && (() => {
+                {/* Show assigned user info only when the asset is assigned */}
+                {(selectedAsset.assetStatus === "Assigned" || selectedAsset.status === "ASSIGNED") && selectedAsset.assignedTo && (() => {
                   const assignedUser = users.find(u => u.id === selectedAsset.assignedTo);
                   if (assignedUser) {
                     return (
