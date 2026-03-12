@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import bcrypt from "bcryptjs";
 import { readFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -9,6 +10,8 @@ const __dirname = dirname(__filename);
 // Initialize database
 const dbPath = join(__dirname, "asset_management.db");
 const db = new Database(dbPath);
+const defaultAdminPasswordHash = bcrypt.hashSync("admin123", 10);
+const defaultUserPasswordHash = bcrypt.hashSync("user123", 10);
 
 // Enable foreign keys
 db.pragma("foreign_keys = ON");
@@ -72,7 +75,7 @@ export function initializeDatabase() {
             VALUES (?, ?, ?, ?, ?, ?, ?)
           `).run(
             "admin",
-            "admin123", // In production, this should be hashed
+            defaultAdminPasswordHash,
             "System Administrator",
             "admin@illuminei.com",
             "E001",
@@ -96,7 +99,7 @@ export function initializeDatabase() {
               UPDATE users 
               SET is_active = 1, role_id = ?, password = ?
               WHERE username = 'admin'
-            `).run(superAdminRole.role_id, "admin123");
+            `).run(superAdminRole.role_id, defaultAdminPasswordHash);
             console.log("✅ Admin user activated (username: admin, password: admin123)");
             // Verify it was updated
             const updated = db.prepare("SELECT is_active FROM users WHERE username = ?").get("admin");
@@ -123,7 +126,7 @@ export function initializeDatabase() {
             VALUES (?, ?, ?, ?, ?, ?, ?)
           `).run(
             "user",
-            "user123", // In production, this should be hashed
+            defaultUserPasswordHash,
             "Regular User",
             "user@illuminei.com",
             "E002",
@@ -188,7 +191,7 @@ export function initializeDatabase() {
             VALUES (?, ?, ?, ?, ?, ?, ?)
           `).run(
             "admin",
-            "admin123",
+            defaultAdminPasswordHash,
             "System Administrator",
             "admin@illuminei.com",
             "E001",

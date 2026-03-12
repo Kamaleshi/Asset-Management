@@ -11,7 +11,6 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
   let activeSection = params.get("section") || null;
-  // ignore any removed/unknown section names
   const validSections = ["users", "assets", "asset-types", "categories", "reports"];
   if (!validSections.includes(activeSection)) activeSection = null;
 

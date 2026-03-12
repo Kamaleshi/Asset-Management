@@ -57,7 +57,7 @@ export default function Assets({ noLayout = false }) {
     try {
       const params = search ? { params: { search } } : {};
       const assetsRes = await api.get("/assets", params);
-      setAssets(assetsRes.data || []);
+      setAssets(Array.isArray(assetsRes.data) ? assetsRes.data : assetsRes.data?.data || []);
     } catch (err) {
       console.error("Failed to fetch assets:", err);
       setAssets([]);

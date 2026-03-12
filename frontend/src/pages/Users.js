@@ -48,7 +48,7 @@ export default function Users({ hideLayout = false }) {
           api.get("/assets"),
         ]);
         setUsers(usersRes.data || []);
-        setAssets(assetsRes.data || []);
+        setAssets(Array.isArray(assetsRes.data) ? assetsRes.data : assetsRes.data?.data || []);
       } catch (err) {
         setError("Failed to load data");
         console.error(err);
@@ -186,7 +186,7 @@ export default function Users({ hideLayout = false }) {
         api.get("/assets"),
       ]);
       setUsers(usersRes.data || []);
-      setAssets(assetsRes.data || []);
+      setAssets(Array.isArray(assetsRes.data) ? assetsRes.data : assetsRes.data?.data || []);
       setShowAssignModal(false);
       setSelectedUser(null);
       setSelectedAssetId("");
