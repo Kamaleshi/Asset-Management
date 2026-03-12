@@ -1,6 +1,6 @@
 import express from "express";
 import multer from "multer";
-import { extname, join } from "path";
+import { join } from "path";
 import {
   getAssets,
   getAssetById,
@@ -38,7 +38,7 @@ const attachmentUpload = multer({
     destination: join(process.cwd(), "backend", "uploads"),
     filename: (req, file, callback) => {
       const safeName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, "_");
-      callback(null, `${Date.now()}-${safeName}${extname(file.originalname) ? "" : ""}`);
+      callback(null, `${Date.now()}-${safeName}`);
     },
   }),
   limits: { fileSize: 10 * 1024 * 1024 },
