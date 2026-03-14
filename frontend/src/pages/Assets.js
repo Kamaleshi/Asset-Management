@@ -403,7 +403,7 @@ export default function Assets({ noLayout = false }) {
       <div className={noLayout ? "flex min-h-0 flex-1 flex-col overflow-hidden" : "flex min-h-0 flex-1 flex-col overflow-hidden p-4"}>
           <div className="mb-4 flex shrink-0 items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-slate-800">assets</h1>
+              <h1 className="text-3xl font-bold text-slate-800">Assets</h1>
               <p className="text-slate-600">Manage your assets</p>
             </div>
             <div className="flex items-center gap-3">
