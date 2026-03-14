@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b7b9156c.css",
+    "main.js": "/static/js/main.d16dcea8.js",
+    "static/media/ilogo.png": "/static/media/ilogo.02e552a7f6b7c95164c0.png",
+    "index.html": "/index.html",
+    "main.b7b9156c.css.map": "/static/css/main.b7b9156c.css.map",
+    "main.d16dcea8.js.map": "/static/js/main.d16dcea8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7b9156c.css",
+    "static/js/main.d16dcea8.js"
+  ]
+}
