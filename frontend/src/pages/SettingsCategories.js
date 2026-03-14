@@ -118,14 +118,14 @@ export default function SettingsCategories() {
   };
 
   return (
-    <>
-      <div className="flex justify-between items-center mb-6">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="mb-4 flex shrink-0 items-center justify-between">
         <div>
-          <h2 className="text-4xl font-bold text-slate-800">Categories</h2>
+          <h2 className="text-3xl font-bold text-slate-800">Categories</h2>
           <p className="text-slate-600">Manage asset categories</p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center bg-white border border-slate-200 rounded-lg px-3 py-2">
+          <div className="flex items-center rounded-lg border border-slate-200 bg-white px-3 py-2">
             <input
               type="text"
               placeholder="Search by type"
@@ -134,7 +134,7 @@ export default function SettingsCategories() {
               onKeyDown={(e) => {
                 if (e.key === "Enter") setAppliedSearch(searchInput);
               }}
-              className="outline-none w-64 text-sm"
+              className="w-64 text-sm outline-none"
             />
             {appliedSearch ? (
               <button
@@ -160,7 +160,7 @@ export default function SettingsCategories() {
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-lg"
+            className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-5 py-2.5 text-white shadow-md transition-all hover:from-red-600 hover:to-red-700 hover:shadow-lg"
           >
             <Plus size={20} />
             Add Category
@@ -168,35 +168,35 @@ export default function SettingsCategories() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-        <div className="overflow-x-auto">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md">
+        <div className="min-h-0 flex-1 overflow-auto">
           <table className="w-full">
-            <thead className="bg-slate-100">
+            <thead className="sticky top-0 z-10 bg-slate-100">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Type</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Created On</th>
-                <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Type</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Created On</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
               {filteredCategories.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-8 text-center text-slate-500">
+                  <td colSpan={3} className="px-5 py-6 text-center text-slate-500">
                     No categories found.
                   </td>
                 </tr>
               ) : (
                 filteredCategories.map((category) => (
                   <tr key={category.id} className="hover:bg-slate-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                    <td className="px-5 py-3 whitespace-nowrap text-sm text-slate-600">
                       {category.type}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                    <td className="px-5 py-3 whitespace-nowrap text-sm text-slate-600">
                       {category.createdAt
                         ? new Date(category.createdAt).toLocaleDateString()
                         : "-"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <td className="px-5 py-3 whitespace-nowrap text-sm">
                       <button
                         onClick={() => handleDelete(category.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
@@ -298,6 +298,6 @@ export default function SettingsCategories() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

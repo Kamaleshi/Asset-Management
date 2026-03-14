@@ -24,17 +24,17 @@ export default function Settings() {
   else Content = <Users hideLayout />; // default
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex h-screen overflow-hidden bg-slate-50">
       <Sidebar />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex min-h-0 flex-col">
         <Topbar />
 
-        <div className="flex-1 p-6 bg-slate-50">
-          <div className="mb-6">
-            <h1 className="text-3xl font-bold text-slate-800">Settings</h1>
+        <div className="flex-1 min-h-0 overflow-hidden bg-slate-50 p-4">
+          <div className="mb-4 shrink-0">
+            <h1 className="text-[2rem] font-bold text-slate-800">Settings</h1>
           </div>
 
-          <div className="bg-white rounded-lg border border-slate-200 p-6">
+          <div className="flex h-[calc(100%-3.5rem)] min-h-0 flex-col overflow-hidden rounded-lg border border-slate-200 bg-white p-4">
             {Content}
           </div>
         </div>

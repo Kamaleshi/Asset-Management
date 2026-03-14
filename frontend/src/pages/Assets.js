@@ -399,15 +399,15 @@ export default function Assets({ noLayout = false }) {
 
   // create reusable content block for assets page (avoids duplication)
   const content = (
-    <div className="flex-1 flex flex-col overflow-hidden">
-      <div className={noLayout ? "flex-1 overflow-y-auto" : "flex-1 overflow-y-auto p-6"}>
-          <div className="flex justify-between items-center mb-6">
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className={noLayout ? "flex min-h-0 flex-1 flex-col overflow-hidden" : "flex min-h-0 flex-1 flex-col overflow-hidden p-4"}>
+          <div className="mb-4 flex shrink-0 items-center justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-slate-800">Assets</h1>
+              <h1 className="text-3xl font-bold text-slate-800">Assets</h1>
               <p className="text-slate-600">Manage your assets</p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center bg-white border border-slate-200 rounded-lg px-3 py-2">
+              <div className="flex items-center rounded-lg border border-slate-200 bg-white px-3 py-2">
                 <input
                   type="text"
                   placeholder="Search by Asset ID, Serial, Brand, Model"
@@ -429,7 +429,7 @@ export default function Assets({ noLayout = false }) {
               {(role === "ADMIN" || role === "SUPER_ADMIN") && (
                 <button
                   onClick={() => setShowAddModal(true)}
-                  className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-lg"
+                  className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-5 py-2.5 text-white transition-all shadow-md hover:from-red-600 hover:to-red-700 hover:shadow-lg"
                 >
                   <Plus size={20} />
                   Add Asset
@@ -439,31 +439,31 @@ export default function Assets({ noLayout = false }) {
           </div>
 
           {error ? (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+            <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4">
               <p className="text-red-600">{error}</p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
-              <div className="overflow-x-auto">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md">
+              <div className="min-h-0 flex-1 overflow-auto">
                 <table className="w-full">
-                  <thead className="bg-slate-100">
+                  <thead className="sticky top-0 z-10 bg-slate-100">
                     <tr>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Seat Number</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Asset ID</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Category</th>
-                      <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Seat Number</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Asset ID</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Category</th>
+                      <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
                       {(role === "ADMIN" || role === "SUPER_ADMIN") && (
-                        <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                        <th className="px-5 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
                       )}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-200">
                     {assets.map((asset) => (
                       <tr key={asset.id} className="hover:bg-slate-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-800">
+                        <td className="px-5 py-3 whitespace-nowrap text-sm text-slate-800">
                           {asset.seatNo || asset.seat || asset.seatAsset || "-"}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <td className="px-5 py-3 whitespace-nowrap text-sm">
                           <button
                             onClick={() => handleViewDetails(asset)}
                             className="text-blue-600 hover:text-blue-800 hover:underline font-medium"
@@ -471,10 +471,10 @@ export default function Assets({ noLayout = false }) {
                             {asset.assetId || asset.name || "N/A"}
                           </button>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                        <td className="px-5 py-3 whitespace-nowrap text-sm text-slate-600">
                           {asset.category || "General"}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
+                        <td className="px-5 py-3 whitespace-nowrap">
                           <span
                             className={`px-3 py-1 text-xs font-semibold rounded-full ${
                               asset.assetStatus === "Assigned" || asset.status === "Assigned" || asset.status === "ASSIGNED"
@@ -497,7 +497,7 @@ export default function Assets({ noLayout = false }) {
                           </span>
                         </td>
                         {(role === "ADMIN" || role === "SUPER_ADMIN") && (
-                          <td className="px-6 py-4 whitespace-nowrap text-sm">
+                          <td className="px-5 py-3 whitespace-nowrap text-sm">
                             <div className="flex items-center gap-2">
                               <button
                                 onClick={() => handleStartEdit(asset)}
