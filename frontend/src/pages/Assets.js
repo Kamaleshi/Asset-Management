@@ -404,7 +404,7 @@ export default function Assets({ noLayout = false }) {
           <div className="mb-4 flex shrink-0 items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-slate-800">Assets</h1>
-              <p className="text-slate-600">Manage your assets</p>
+              <p className="text-slate-600">Manage your Assets</p>
             </div>
             <div className="flex items-center gap-3">
               <div className="flex items-center rounded-lg border border-slate-200 bg-white px-3 py-2">
