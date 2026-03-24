@@ -40,11 +40,11 @@ export default function Reports() {
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       <div className="shrink-0">
         <h1 className="mb-1 text-3xl font-bold text-slate-800">Reports</h1>
-        <p>Operational reporting and export for enterprise asset oversight.</p>
+        <p>Operational reporting and export for enterprise asset oversight</p>
       </div>
 
       <div className="mt-4 min-h-0 flex-1 overflow-y-auto">
-        {loading && <p className="text-slate-500">Loading reports...</p>}
+        {loading && <p className="text-slate-500">Loading reports.....</p>}
         {error && <p className="text-red-600">{error}</p>}
 
         <div className="grid gap-3 pb-4 sm:grid-cols-2 xl:grid-cols-4">
